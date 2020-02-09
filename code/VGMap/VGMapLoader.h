@@ -1,14 +1,21 @@
-//
-// Created by Kunming Yang on 2020-01-22.
-//
+#pragma once
+#include "VGMap.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <vector>
+using namespace std;
 
-#ifndef PROJECT_VGMAPLOADER_H
-#define PROJECT_VGMAPLOADER_H
-
-
-class VGMapLoader {
-
+class VGMapLoader
+{
+private:
+	VGMap * vgmap;
+public:
+	VGMapLoader();
+	virtual ~VGMapLoader();
+	virtual void readfromfile(string);
+	void has_only_digits_err(const string, const string);
+	void error_m();
+	VGMap* getVGMap();
+	void setVGMap(VGMap *vgmap);
 };
-
-
-#endif //PROJECT_VGMAPLOADER_H
