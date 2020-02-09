@@ -1,4 +1,6 @@
-
+[borders]
+;the first number is current position, next four number represent from left to top to right to bottom of the current position
+;next four string is from top-left to top-right to bottom-left to bottom-right of the value of the tile.
 10 null 11 20 null
 20 10 21 30 null
 30 20 31 40 null
@@ -44,3 +46,51 @@
 36 26 null 46 35
 46 36 null 56 45
 56 46 null null 55
+
+[tiles]
+;the first number is the current vertex, next four string is from top-left to top-right to bottom-left to bottom-right of the value of the tile.
+10 
+20
+30 
+40 
+50 
+01 
+11 Sheep Stone Sheep Wheat
+21 
+31 
+41 
+51 Stone Stone Timber Wheat
+61 
+02 
+12 
+22 
+32 
+42 
+52 
+62 
+03 
+13 
+23 
+33
+43 
+53 
+63 
+04 
+14 
+24 
+34 
+44 
+54 
+64 
+05 
+15 Stone Sheep Timber Timber
+25 
+35 
+45 
+55 Wheat Sheep Wheat Timber
+65 
+16 
+26 
+36 
+46 
+56 

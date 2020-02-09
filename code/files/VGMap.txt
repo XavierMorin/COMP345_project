@@ -1,5 +1,6 @@
 [borders]
-;the first number is the number of the tile  and the other numbers that follow are what tiles that tile is adjacent too
+;the first number is current position, next four number is left->top->right->bottom of current position
+;last number is the value of the building
 
 11 null 12 21 null 1
 21 11 22 31 null 1

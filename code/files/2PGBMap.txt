@@ -1,11 +1,10 @@
-
 [borders]
-;the first number is the number of the tile  and the other numbers that follow are what tiles that tile is adjacent too
+;the first number is current position, next four number represent from left to top to right to bottom of the current position
 11 null 12 21 null Sheep Stone Sheep Wheat
 21 11 22 31 null
 31 21 32 41 null
 41 31 42 51 null
-51 41 52 null null Stone Stone Timber Wheat
+51 41 52 null null 
 12 null 13 22 11
 22 12 23 32 21
 32 22 33 42 31
@@ -21,9 +20,37 @@
 34 24 35 44 33
 44 34 45 54 43
 54 44 55 null 53
-15 null null 25 14 Stone Sheep Timber Timber
+15 null null 25 14 
 25 15 null 35 24
 35 25 null 45 34
 45 35 null 55 44
-55 45 null null 54 Wheat Sheep Wheat Timber
+55 45 null null 54 
+
+[tile]
+;the first number is the current vertex, next four string is from top-left to top-right to bottom-left to bottom-right of the value of the tile.
+11 Sheep Stone Sheep Wheat
+21 
+31 
+41 
+51 Stone Stone Timber Wheat
+12 
+22 
+32 
+42 
+52
+13 
+23
+33
+43
+53
+14
+24
+34
+44
+54
+15 Stone Sheep Timber Timber
+25
+35 
+45 
+55 Wheat Sheep Wheat Timber
 
