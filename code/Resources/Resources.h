@@ -9,29 +9,74 @@
 #include <string>
 
 class Tile;
+	class TileDeck;
+	class Building;
+	class BuildingDeck;
+	class Tile {
+		
+	private:
+		enum Types { sheep, wheet, stone, timber };
+		Types* upleft;
+		Types* upright;
+		Types* downleft;
+		Types* downright;
+	public:
+		Tile();
+		Tile(Types one, Types two, Types three, Types four);
+		~Tile();//destructor
+		Types getUpLeft();
+		Types getUpRight();
+		Types getDownLeft();
+		Types getDownRight();
+		void setUpLeft(Types s);
+		void setUpRight(Types s);
+		void setDownLeft(Types s);
+		void setDownRight(Types s);
 
-class Tile
-{
+
+	};
+	class TileDeck {
+
+	public:
+		Tile* draw();
+		TileDeck();
+		~TileDeck();
+		
+	};
+	class Building{
 public:
-    //default
-    Tile();
-    //parameterized constructor
-    Tile(std::string top_left,
-         std::string top_right,
-         std::string bottom_left,
-         std::string bottom_right);
+    enum Type {sheep, stone, timber, wheet};
+    Building();
+    Building(int cost, Type type);
+    ~Building();
+	Type getType();
+	int getCost();
+	void setType(Type type);
+	void setCost(int cost);
 
 private:
-    std::string* top_left;
-    std::string* top_right;
-    std::string* bottom_left;
-    std::string* bottom_right;
+
+    int* cost;
+    Type* type;
+
 
 };
 
-class Resources
-        {
+class BuildingDeck{
+private:
 
+	Building* allBuilding[4][6];
+
+public:
+    BuildingDeck();
+    Building draw();
+
+};
+class Hand{
+private:
+	
+public:
+	void exchange();
 };
 
 
