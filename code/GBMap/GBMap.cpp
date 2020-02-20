@@ -5,90 +5,140 @@
 #include "GBMap.h"
 #include "../Resources/Resources.h"
 #include <iostream>
-Tile::Tile()
-{
-    *top_left = "";
-    *top_right = "";
-    *bottom_left = "";
-    *bottom_right = "";
-}
+#include <vector>
 
-Tile::Tile(
-        std::string top_left_,
-        std::string top_right_,
-        std::string bottom_left_,
-        std::string bottom_right_)
-{
-    *top_left = top_left_;
-    *top_right = top_right_;
-    *bottom_left = bottom_left_;
-    *bottom_right = bottom_right_;
-}
+using namespace std;
 
+//default
 TileSlot::TileSlot()
 {
-    *adjacentTiltSlots = new std::vector<TileSlot *>();
-    *Tile = new Tile();
-    *TileSlot_id = new int(0);
+    Tile_p = new Tile();
+    TileSlot_id = new int (0);
+}
+//parameter
+TileSlot::TileSlot(Tile Tile_, int TileSlot_id_)
+{
+    Tile_p = new Tile(Tile_);
+    TileSlot_id = new int(TileSlot_id_);
 }
 
-TileSlot::TileSlot(Tile Tile_
-        int TileSlot_id_){
-
-    *adjacentTiltSlots = new std::vector<TileSlot *>();
-    *Tile = Tile_;
-    *TileSlot_id = new int(TileSlot_id_);
+//parameter
+TileSlot::TileSlot(std::vector<TileSlot *> *adjTilesSlots_, Tile Tile_, int TileSlot_id_)
+{
+    adjTiltSlots = adjTilesSlots_;
+    Tile_p = new Tile(Tile_);
+    TileSlot_id = new int(TileSlot_id_);
 }
 
-TileSlot::TileSlot(
-        std::vector<TileSlot *> adjacentTileSlots_,
-        Tile Tile_,
-        int TileSlot_id_)
-        {
-
-    *adjacentTiltSlots = adjacentTileSlots_;
-    *Tile = Tile_;
-    *TileSlot_id = new int(TileSlot_id_)
-}
-
+//destructor
 TileSlot::~TileSlot()
 {
-    delete adjacentTiltSlots;
+    delete adjTiltSlots;
     delete TileSlot_id;
-    delete Tile;
+    delete Tile_p;
 }
 
-std::vector<TileSlot* > &TileSlot::getAdjacentTileSlots()
+Tile& TileSlot::getTile()
 {
-    return *adjacentTiltSlots;
+    return *Tile_p;
 }
 
-void TileSlot::setAdjacentTileSlots(std::vector<TileSlot *> adjTileSlot)
+void TileSlot::setTile(Tile Tile_)
 {
-    *adjacentTiltSlots = adjTileSlot;
+    *Tile_p = Tile_;
 }
 
-void TileSlot::addAdjacentTileSlot(TileSlot *TileSlot)
+
+//adjacent TileSlot accessor method
+std::vector<TileSlot *>& TileSlot::getAdjacentTileSlots()
 {
-    adjacentTiltSlots -> push_back(TileSlot);
+    return *adjTiltSlots;
 }
 
-bool TileSlot::isAdjacent(TileSlot *TileSlot)
+//adjacent TileSlot mutator method
+void TileSlot::setAdjacentTileSlots(std::vector<TileSlot *> adjTileSlots_)
 {
-    for (int i = 0; i < adjacentTiltSlots->size(); ++i)
-    {
-        if(adjacentTiltSlots->at(i) == TileSlot) {
+    *adjTiltSlots = adjTileSlots_;
+}
+
+//add TileSlot to adjacent TileSlot vector method
+void TileSlot::addAdjacentTileSlot(TileSlot *TileSlots)
+{
+    adjTiltSlots->push_back(TileSlots);
+}
+
+//check if TileSlot is adjacent
+bool TileSlot::isAdjacent(TileSlot *TileSlots)
+{
+    for (int i = 0; i < adjTiltSlots->size(); i++) {
+        if (adjTiltSlots->at(i) == TileSlots)
+        {
             return true;
         }
     }
     return false;
 }
 
+/**GBMap IMPLEMENTATION **/
 
+GBMap::GBMap()
+{
+    TileSlots = new vector<TileSlot *>();
+}
 
+GBMap::GBMap(std::vector<TileSlot *> *TileSlots_)
+{
+    TileSlots = TileSlots_;
 
-/** GBMap IMPLEMENTATION **/
+}
 
-GBMap::GBMap(){
+GBMap::~GBMap()
+{
+    delete TileSlots;
+}
 
+// Accessor method
+std::vector<TileSlot *>& GBMap::getTileSlots()
+{
+    return *TileSlots;
+}
+
+// Mutator method
+void GBMap::setTileSlots(std::vector<TileSlot *> TileSlots_)
+{
+    *TileSlots = TileSlots_;
+
+}
+
+// add TileSlot method
+void GBMap::addTileSlt(TileSlot *TileSlots_)
+{
+    TileSlots->push_back(TileSlots_);
+}
+// check if a map is a connected graph
+bool GBMap::isConnectedGraph()
+{
+    for (int i = 0; i < TileSlots->size(); i++) {
+        for (int j = 0; j < TileSlots->at(i)->getAdjacentTileSlots().size(); j++) {
+            if (!(TileSlots->at(i)->getAdjacentTileSlots().at(j)->isAdjacent(TileSlots->at(i)))) {
+                //                std::cout << "TileSlots : " << TileSlots->at(i)->getAdjacentTileSlots().at(j)->getName() << " and " << TileSlots->at(i)->getName() << " are only connected one way." << std::endl;
+                return false;
+            }
+        }
+    }
+
+    std::vector<TileSlot *> temp;
+    for (int i = 0; i < TileSlots->size(); i++) {
+        temp.insert(temp.end(), TileSlots->at(i)->getAdjacentTileSlots().begin(), TileSlots->at(i)->getAdjacentTileSlots().end());
+    }
+    std::sort(temp.begin(), temp.end());
+    temp.erase(std::unique(temp.begin(), temp.end()), temp.end());
+
+    for (int i = 0; i < TileSlots->size(); i++) {
+        if (std::find(temp.begin(), temp.end(), TileSlots->at(i)) == temp.end()) {
+            //            std::cout << "BuildingSlot " << TileSlots->at(i)->getName() << " is not connected to the rest of the graph." << std::endl;
+            return false;
+        }
+    }
+    return true;
 }

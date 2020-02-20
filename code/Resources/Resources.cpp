@@ -3,6 +3,14 @@
 //
 
 #include "Resources.h"
+Tile::Tile()
+{
+    this->upleft = new Types;
+    this->upright = new Types;
+    this->downleft = new Types;
+    this->downright = new Types;
+}
+
 Tile::Tile(Types one,Types two,Types three,Types four) {
 	this->upleft = &one;
 	this->upright = &two;
@@ -75,7 +83,7 @@ BuildingDeck::BuildingDeck() {
 		allBuilding[3][i] = new Building(int(i + 1), Building::Type::wheet);
 	}
 }
-*Building BuildingDeck::draw() {
+Building BuildingDeck::draw() {
 	int n1 = rand() % 4 + 1;
 	int n2 = rand() % 5;
 	while (allBuilding[n1][n2] == nullptr) {

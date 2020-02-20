@@ -6,11 +6,15 @@
 #ifndef PROJECT_GBMAP_H
 #define PROJECT_GBMAP_H
 
-#include <string>
+#include "../Resources/Resources.h"
+#include <iostream>
 #include <vector>
-#include <algorithm>
+#include <map>
+#include <string>
 
 class TileSlot;
+TileSlot();
+
 class GBMap;
 
 class TileSlot
@@ -19,20 +23,16 @@ public:
     //default
     TileSlot();
     //parameterized constructor
-    TileSlot( Tile Tile_,
-            int TileSlot_id);
+    TileSlot(Tile Tile_,int TileSlot_id_);
     //parameterized constructor with adjacent TileSlots
-    TileSlot(std::vector<TileSlot *> adjacentTilesSlots,
-            Tile Tile_);
+    TileSlot(std::vector<TileSlot *> *adjTilesSlots_,Tile Tile_,int TileSlot_id_);
     //destructor
     ~TileSlot();
 
-    //Accessors
-    //Tile getter
-    int &getTile();
+    Tile& getTile();
 
-    //Mutator
-    void setTile();
+    void setTile(Tile Tile_);
+
 
     //adjacent TileSlot accessor method
     std::vector<TileSlot *>& getAdjacentTileSlots();
@@ -44,17 +44,21 @@ public:
     void addAdjacentTileSlot(TileSlot *TileSlot);
 
     //check if TileSlot is adjacent
-    bool isAdjacent(TileSlot *TileSlot)
+    bool isAdjacent(TileSlot *TileSlot);
 
     void print();
 
 private:
     //vector of all adjacent TileSlot
-    std::vector<TileSlot *> *adjacentTiltSlots;
-
+    std::vector<TileSlot *> *adjTiltSlots;
     //value of this slot
-    int* TileSlot_id;
-    Tile* Tile;
+    Tile* Tile_p;
+    int *TileSlot_id;
+    TileSlot* left;
+    TileSlot* up;
+    TileSlot* right;
+    TileSlot* down;
+
 
 };
 
@@ -64,26 +68,26 @@ public:
     //default constructor
     GBMap();
     //parameterized constructor
-    GBMap(std::vector<TileSlot *> *TileSlot)
+    GBMap(std::vector<TileSlot *> *TileSlots_);
     //destructor
     ~GBMap();
 
+    // Accessor method
+    std::vector<TileSlot *>& getTileSlots();
 
+    // Mutator method
+    void setTileSlots(std::vector<TileSlot *> TileSlot_);
 
-    // PrintGBMap
-    void printGBMap();
+    // add TileSlot method
+    void addTileSlt(TileSlot *TileSlot_ptr_);
+
     // check if a map is a connected graph
     bool isConnectedGraph();
-    // check if map contains duplicates
-    bool containsDuplicates();
-    // remove duplicates from map
-    void removeDuplicates();
-    //reset map
-    void resetMap();
 
 private:
     //vector containinf points to all circular spaces of the GBMap
-    std::vector<TileSlot *> *TileSlot;
+    std::vector<TileSlot *> *TileSlots;
+
 
 };
 

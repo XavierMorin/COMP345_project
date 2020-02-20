@@ -2,16 +2,16 @@
 [tile]
 ;the first number is the current vertex, next four string is from top-left to top-right to bottom-left to bottom-right of the value of the tile.
 11 Sheep Stone Sheep Wheat
-21 
-31 
-41 
+21
+31
+41
 51 Stone Stone Timber Wheat
-12 
-22 
-32 
-42 
+12
+22
+32
+42
 52
-13 
+13
 23
 33
 43
@@ -23,8 +23,8 @@
 54
 15 Stone Sheep Timber Timber
 25
-35 
-45 
+35
+45
 55 Wheat Sheep Wheat Timber
 
 [borders]
