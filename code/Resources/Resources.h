@@ -12,7 +12,6 @@ class Tile;
 	class TileDeck;
 	class Building;
 	class BuildingDeck;
-
 	class Tile {
 		
 	private:
@@ -36,7 +35,6 @@ class Tile;
 
 
 	};
-
 	class TileDeck {
 
 	public:
@@ -45,7 +43,6 @@ class Tile;
 		~TileDeck();
 		
 	};
-
 	class Building{
 public:
     enum Type {sheep, stone, timber, wheet};
