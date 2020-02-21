@@ -15,6 +15,5 @@ int main(int argc, char* argv[])
     TileSlot *TileSlot14 = new TileSlot(Tile(), 14);
     TileSlot *TileSlot15 = new TileSlot(Tile(), 15);
 
-    
 
 }

@@ -39,10 +39,10 @@ void GBMapLoader::readfromfile(std::string filename)
 
     //Boarder
     int id = 0,
-        id_left = 0,
-        id_top = 0,
-        id_right = 0,
-        id_down = 0;
+        id_first = 0,
+        id_second = 0,
+        id_third = 0,
+        id_fourth = 0;
 
 
     //read file
@@ -110,16 +110,27 @@ void GBMapLoader::readfromfile(std::string filename)
                 else if (flag == 2)
                 {
                     iss >> id;
-                    iss >> id_left;
-                    iss >> id_top;
-                    iss >> id_right;
-                    iss >> id_down;
+                    iss >> id_first;
+                    iss >> id_second;
+                    iss >> id_third;
+                    iss >> id_fourth;
 
-                    map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_left));
-                    map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_top));
-                    map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_right));
-                    map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_down));
-
+                    if (id_first != 0)
+                    {
+                        map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_first));
+                    }
+                    if(id_second != 0)
+                    {
+                        map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_second));
+                    }
+                    if (id_third != 0)
+                    {
+                        map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_third));
+                    }
+                    if (id_fourth != 0)
+                    {
+                        map->getTileSlots().at(id)->addAdjacentTileSlot(map->getTileSlots().at(id_fourth));
+                    } 
 
 
                 }
@@ -127,6 +138,7 @@ void GBMapLoader::readfromfile(std::string filename)
         }
     }
     input.close();
+
 
 
 }
