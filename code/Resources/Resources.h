@@ -1,61 +1,62 @@
-//
-// Created by Kunming Yang on 2020-01-22.
-//
 #pragma once
-
-#ifndef PROJECT_RESOURCES_H
-#define PROJECT_RESOURCES_H
-
-#include <string>
+#ifndef RESOURCES_H
+#define RRESOURCES_H
 
 class Tile;
-	class TileDeck;
-	class Building;
-	class BuildingDeck;
-
-	class Tile {
-	public:
-        enum Types { sheep, wheet, stone, timber };
-        Types* upleft;
-        Types* upright;
-        Types* downleft;
-        Types* downright;
-
-		Tile();
-		Tile(Types one, Types two, Types three, Types four);
-		~Tile();//destructor
-		Types getUpLeft();
-		Types getUpRight();
-		Types getDownLeft();
-		Types getDownRight();
-		void setUpLeft(Types s);
-		void setUpRight(Types s);
-		void setDownLeft(Types s);
-		void setDownRight(Types s);
-		static Types sToTypes(std::string);
+class TileDeck;
+class Building;
+class BuildingDeck;
+class Tile {
 
 
-    };
+public:
+    Tile();
+    enum Types { sheep, wheet, stone, timber };
+    Tile(Types one, Types two, Types three, Types four);
+    ~Tile();//
+    Types sToTypes(std::string s);
+    Types getUpLeft();
+    Types getUpRight();
+    Types getDownLeft();
+    Types getDownRight();
+    void setUpLeft(Types s);
+    void setUpRight(Types s);
+    void setDownLeft(Types s);
+    void setDownRight(Types s);
+    Types getRandomType();
+    void setNumOfResources();
+    Types* typeArray[4] = {upleft, upright,downright,downleft};
+    int numOfSheep();
+    int numOfWheet();
+    int numOfStone();
+    int numOfTimper();
+private:
+    int* numOfResources[4] = {0,0,0,0}; //index0:sheep index1:wheet index2:stone index3:timber
+    Types* upleft;
+    Types* upright;
+    Types* downleft;
+    Types* downright;
 
-	class TileDeck {
 
-	public:
-		Tile* draw();
-		TileDeck();
-		~TileDeck();
-		
-	};
+};
+class TileDeck {
+private: Tile* allTiles[60];
+public:
+    Tile* draw();
+    TileDeck();
+    ~TileDeck();
 
-	class Building{
+};
+class Building{
 public:
     enum Type {sheep, stone, timber, wheet};
     Building();
     Building(int cost, Type type);
     ~Building();
-	Type getType();
-	int getCost();
-	void setType(Type type);
-	void setCost(int cost);
+    Type getType();
+    int getCost();
+    void setType(Type type);
+    void setCost(int cost);
 
 private:
 
@@ -65,22 +66,38 @@ private:
 
 };
 
-class BuildingDeck{
-private:
-
-	Building* allBuilding[4][6];
-
+class BuildingDeck {
+    Building* allBuilding[4][6];
 public:
-    BuildingDeck();
-    Building draw();
+    Building* draw();
 
 };
 class Hand{
 private:
-	
+    Tile* tile1;
+    Tile* tile2;
+    Building* buildings[60];
+    int numOfTree;
+    int numOfStone;
+    int numOfWheet;
+    int numOfTimber;
+
 public:
-	void exchange();
+    void exchange();
+    Tile getTile1();
+    Tile getTile2();
+    int getNumOfTree();
+    int getNumOfStone();
+    int getNumOfWheet();
+    int getNumOfTimber();
+    void setTile1(Tile t);
+    void setTile2(Tile t);
+    void setNumOfTree(int i);
+    void setNumOfTimber(int i);
+    void setNumOfStone(int i);
+    void setNumOfWheet(int i);
+
 };
 
 
-#endif //PROJECT_RESOURCES_H
+#endif // !RESOURCES_H
