@@ -67,6 +67,13 @@ void TileSlot::addAdjacentTileSlot(TileSlot *TileSlots)
     adjTiltSlots->push_back(TileSlots);
 }
 
+//
+int TileSlot::getTileSlotId()
+{
+    return *TileSlot_id;
+}
+
+
 //check if TileSlot is adjacent
 bool TileSlot::isAdjacent(TileSlot *TileSlots)
 {
@@ -111,10 +118,12 @@ void GBMap::setTileSlots(std::vector<TileSlot *> TileSlots_)
 }
 
 // add TileSlot method
-void GBMap::addTileSlt(TileSlot *TileSlots_)
+void GBMap::addTileSlot(TileSlot *TileSlots_)
 {
     TileSlots->push_back(TileSlots_);
 }
+
+
 // check if a map is a connected graph
 bool GBMap::isConnectedGraph()
 {

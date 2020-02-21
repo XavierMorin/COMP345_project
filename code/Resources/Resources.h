@@ -14,14 +14,13 @@ class Tile;
 	class BuildingDeck;
 
 	class Tile {
-		
-	private:
-		enum Types { sheep, wheet, stone, timber };
-		Types* upleft;
-		Types* upright;
-		Types* downleft;
-		Types* downright;
 	public:
+        enum Types { sheep, wheet, stone, timber };
+        Types* upleft;
+        Types* upright;
+        Types* downleft;
+        Types* downright;
+
 		Tile();
 		Tile(Types one, Types two, Types three, Types four);
 		~Tile();//destructor
@@ -33,9 +32,10 @@ class Tile;
 		void setUpRight(Types s);
 		void setDownLeft(Types s);
 		void setDownRight(Types s);
+		static Types sToTypes(std::string);
 
 
-	};
+    };
 
 	class TileDeck {
 

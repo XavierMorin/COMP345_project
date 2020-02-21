@@ -43,6 +43,9 @@ public:
     //add TileSlot to adjacent TileSlot vector method
     void addAdjacentTileSlot(TileSlot *TileSlot);
 
+    //get Tile Id
+    int getTileSlotId();
+
     //check if TileSlot is adjacent
     bool isAdjacent(TileSlot *TileSlot);
 
@@ -79,7 +82,7 @@ public:
     void setTileSlots(std::vector<TileSlot *> TileSlot_);
 
     // add TileSlot method
-    void addTileSlt(TileSlot *TileSlot_ptr_);
+    void addTileSlot(TileSlot *TileSlot_ptr_);
 
     // check if a map is a connected graph
     bool isConnectedGraph();
