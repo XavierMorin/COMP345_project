@@ -1,5 +1,9 @@
 #include "Resources.h"
 #include <random>;
+#include <vector>;
+#include "GBMap.h";
+#include <iostream>;
+#include "GBMapLoader.h";
 Tile::Tile(Types one,Types two,Types three,Types four) {
 	this->upleft = &one;
 	this->upright = &two;
@@ -36,6 +40,30 @@ void Tile::setUpLeft(Types s) {
 }
 void Tile::setUpRight(Types s) {
 	*upright = s;
+}
+void  Tile::setNumOfResources() {
+	for (int i = 0; i < 4; i++) {
+		if (*this->typeArray[i] == Tile::Types::sheep)
+			this->numOfResources[0]++;
+		if (*this->typeArray[i] == Tile::Types::wheet)
+			this->numOfResources[1]++;
+		if (*this->typeArray[i] == Tile::Types::stone)
+			this->numOfResources[2]++; 
+		if (*this->typeArray[i] == Tile::Types::timber)
+			this->numOfResources[3]++;
+	}
+};
+int Tile::numOfSheep() {
+	return *this->numOfResources[0];
+}
+int Tile::numOfStone() {
+	return *this->numOfResources[1];
+}
+int Tile::numOfWheet() {
+	return *this->numOfResources[2];
+}
+int Tile::numOfTimper() {
+	return *this->numOfResources[3];
 }
 Building::Type Building::getType()  {
 	return *type;
@@ -99,6 +127,17 @@ Tile::Types Tile::getRandomType() {
 		return Tile::Types::timber;
 		break;
 	}
+}
+Tile::Types Tile::sToTypes(std::string str)
+{
+	if (str == "sheep")
+		return sheep;
+	else if (str == "wheet")
+		return wheet;
+	else if (str == "stone")
+		return stone;
+	else if (str == "timber")
+		return timber;
 }
 Tile* TileDeck::draw() {
 	Tile::Types one;
@@ -199,6 +238,68 @@ void Hand::setNumOfWheet(int i) {
 	numOfWheet = i;
 }
 void exchange() {//need to see the GameBoard part.........
+	std::cout << "How many players are in the game?";
+	int* numOfPlayers = new int();
+	std::cin >> *numOfPlayers; 
+	if (*numOfPlayers == 2) {
+		std::cout << "You can use the ceter 5*5 area....." << std::endl;
+	}
+	if (*numOfPlayers == 3) {
+		std::cout << "You can use the light center area and the top and bottom green square..." << std::endl;
+	}
+	if (*numOfPlayers == 4) {
+		std::cout << "You can use the entire area...." << std::endl;
+	}
+	else {
+		std::cout << "The game can't be played by more than 4 players, game over. Yes, I am serious, it's over." << std::endl;
+		exit(0);
+	}
+	
+	 bool valid = false;
+	 int* position = new int();
+	 while (!valid) {
+		 std::cout << "Please enter the slot you want to put ur tile :" << std::endl;
+		 
+		 std::cin >> *position;
+		 if (*numOfPlayers == 2) {
+			 if (*position % 10 >= 1 && *position % 10 <= 5 && *position >= 11 && *position <= 55)
+				 valid = true;
+			 else {
+				 std::cout << "The slot does not exist, try again...." << std::endl;
+				 valid = false;
+				 continue;
+			 }
+		 }
+		 if (*numOfPlayers == 3) {
+			 if (*position % 10 >= 1 && *position % 10 <= 5 && *position > 1 && *position < 66)
+				 valid = true;
+			 else {
+				 std::cout << "The slot does not exist, try again...." << std::endl;
+				 valid = false;
+				 continue;
+			 }
+		 }
+		 if (*numOfPlayers == 4) {
+			 if (*position % 10 >= 0 && *position % 10 <= 6 && *position > 1 && *position < 66 && *position != 6 && *position != 60)
+				 valid = true;
+			 else {
+				 std::cout << "The slot does not exist, try again...." << std::endl;
+				 valid = false;
+				 continue;
+			 }
+		 }
+	 }
+	 GBMapLoader* maploader = new GBMapLoader();
+	 if (*numOfPlayers == 2)
+		 maploader->readfromfile("2PGBMap.txt");
+	 if (*numOfPlayers == 3)
+		 maploader->readfromfile("3PGBMap.txt");
+	 else {
+		 maploader->readfromfile("4PGBMap.txt");
+	 }
+
+	 GBMap *gb=maploader->getMap();
+	 
 
 };
 int main(int argc, char* argv[]) {
