@@ -87,6 +87,7 @@ public:
     // check if a map is a connected graph
     bool isConnectedGraph();
 
+    void print(GBMap map);
 private:
     //vector containinf points to all circular spaces of the GBMap
     std::vector<TileSlot *> *TileSlots;

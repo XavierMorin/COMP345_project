@@ -6,7 +6,8 @@
 #ifndef PROJECT_GBMAPLOADER_H
 #define PROJECT_GBMAPLOADER_H
 
-#include "../GBMap/GBMap.h";
+#include "../GBMap/GBMap.h"
+#include "../Resources//Resources.h"
 #include <string>
 #include <iostream>
 #include <fstream>

@@ -151,3 +151,33 @@ bool GBMap::isConnectedGraph()
     }
     return true;
 }
+
+void GBMap::print(GBMap map)
+{
+    int *id = new int(0);
+    Tile *temp = new Tile();
+
+    for (int i = 0; i < map.getTileSlots().size(); i++)
+    {
+        *id = map.getTileSlots().at(i)->getTileSlotId();
+        cout << "Id : " << id << endl;
+        *temp = map.getTileSlots().at(i)->getTile();
+
+        /* if there is tile inside, print tile information*/
+//        if (*temp )       has info
+//        {
+//             cout << "Tile : " << endl;
+//             cout << "        " << "Upleft: " << temp->getUpLeft() << endl;
+//             cout << "        " << "Upright: " << temp->getUpRight() << endl;
+//             cout << "        " << "Downleft: " << temp->getDownLeft() << endl;
+//             cout << "        " << "Downright: " << temp->getDownRight() << endl;
+//        }
+
+        /*if there is no tile inside, print empty */
+//        else
+//        {
+//            cout << "Empty Slot." << endl;
+//        }
+    }
+
+}

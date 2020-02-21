@@ -3,7 +3,6 @@
 //
 
 #include "GBMapLoader.h"
-#include "../Resources//Resources.h"
 #include <sstream>
 #include <algorithm>
 
