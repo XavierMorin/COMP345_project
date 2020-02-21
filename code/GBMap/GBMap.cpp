@@ -12,22 +12,23 @@ using namespace std;
 //default
 TileSlot::TileSlot()
 {
-    Tile_p = new Tile();
-    TileSlot_id = new int (0);
+    *Tile_p = Tile();
+    *TileSlot_id = 0;
+
 }
 //parameter
 TileSlot::TileSlot(Tile Tile_, int TileSlot_id_)
 {
-    Tile_p = new Tile(Tile_);
-    TileSlot_id = new int(TileSlot_id_);
+    *Tile_p = Tile_;
+    *TileSlot_id = TileSlot_id_;
 }
 
 //parameter
-TileSlot::TileSlot(std::vector<TileSlot *> *adjTilesSlots_, Tile Tile_, int TileSlot_id_)
+TileSlot::TileSlot(std::vector<TileSlot *> adjTilesSlots_, Tile Tile_, int TileSlot_id_)
 {
-    adjTiltSlots = adjTilesSlots_;
-    Tile_p = new Tile(Tile_);
-    TileSlot_id = new int(TileSlot_id_);
+    *adjTiltSlots = adjTilesSlots_;
+    *Tile_p = Tile_;
+    *TileSlot_id = TileSlot_id_;
 }
 
 //destructor
@@ -46,6 +47,25 @@ Tile& TileSlot::getTile()
 void TileSlot::setTile(Tile Tile_)
 {
     *Tile_p = Tile_;
+}
+
+TileSlot TileSlot::getTileSlot()
+{
+    return *TileSlot_p;
+}
+
+TileSlot TileSlot::setTileSlot(TileSlot TileSlot_)
+{
+    *TileSlot_p = TileSlot_;
+}
+
+bool TileSlot::isEmpty()
+{
+    if(&this->getTile()== nullptr)
+    {
+        return true;
+    } else
+        return false;
 }
 
 
@@ -179,5 +199,23 @@ void GBMap::print(GBMap map)
 //            cout << "Empty Slot." << endl;
 //        }
     }
+}
 
+
+TileSlot GBMap::SearchById(GBMap* map_,int n)
+{
+    TileSlot *temp = new TileSlot();
+    for (int i = 0; i < map->getTileSlots().size(); i++)
+    {
+        if(map->getTileSlots().at(i)->getTileSlotId() == n)
+            *temp = map->getTileSlots().at(i)->getTileSlot();
+    }
+
+    if(temp->getTileSlotId() != 0)
+    {
+        return *temp;
+    } else
+    {
+        cout << "Error: Did not find match!\nPlease try again!";
+    }
 }

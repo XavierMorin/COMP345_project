@@ -1,11 +1,11 @@
 #include "Resources.h"
 #include <random>;
+
 Tile::Tile(Types one,Types two,Types three,Types four) {
 	this->upleft = &one;
 	this->upright = &two;
 	this->downright = &three;
 	this->downleft = &four;
-
 }
 Tile::~Tile() {
 	delete upleft;

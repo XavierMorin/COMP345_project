@@ -25,7 +25,7 @@ public:
     //parameterized constructor
     TileSlot(Tile Tile_,int TileSlot_id_);
     //parameterized constructor with adjacent TileSlots
-    TileSlot(std::vector<TileSlot *> *adjTilesSlots_,Tile Tile_,int TileSlot_id_);
+    TileSlot(std::vector<TileSlot *> adjTilesSlots_,Tile Tile_,int TileSlot_id_);
     //destructor
     ~TileSlot();
 
@@ -33,6 +33,15 @@ public:
 
     void setTile(Tile Tile_);
 
+    //get Tile Id
+    int getTileSlotId();
+
+    //getTileSlot
+    TileSlot getTileSlot();
+
+    TileSlot setTileSlot(TileSlot TileSlot_);
+
+    bool isEmpty();
 
     //adjacent TileSlot accessor method
     std::vector<TileSlot *>& getAdjacentTileSlots();
@@ -43,8 +52,7 @@ public:
     //add TileSlot to adjacent TileSlot vector method
     void addAdjacentTileSlot(TileSlot *TileSlot);
 
-    //get Tile Id
-    int getTileSlotId();
+
 
     //check if TileSlot is adjacent
     bool isAdjacent(TileSlot *TileSlot);
@@ -57,10 +65,7 @@ private:
     //value of this slot
     Tile* Tile_p;
     int *TileSlot_id;
-    TileSlot* left;
-    TileSlot* up;
-    TileSlot* right;
-    TileSlot* down;
+    TileSlot* TileSlot_p;
 
 
 };
@@ -88,9 +93,12 @@ public:
     bool isConnectedGraph();
 
     void print(GBMap map);
+
+    TileSlot SearchById(GBMap* map_,int n);
 private:
     //vector containinf points to all circular spaces of the GBMap
     std::vector<TileSlot *> *TileSlots;
+    GBMap* map;
 
 
 };
