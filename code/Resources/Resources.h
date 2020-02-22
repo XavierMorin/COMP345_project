@@ -1,6 +1,7 @@
 #pragma once
 #ifndef RESOURCES_H
 #define RRESOURCES_H
+#include <iostream>
 
 	class Tile;
 	class TileDeck;
@@ -31,6 +32,8 @@
 		int numOfWheet();
 		int numOfStone();
 		int numOfTimper();
+		void toString();
+		std::string typeToString(Types t);
 	private:
 		int* numOfResources[4] = {0,0,0,0}; //index0:sheep index1:wheet index2:stone index3:timber
 		Types* upleft;
@@ -72,6 +75,7 @@ private:
 };
 
 class BuildingDeck {
+	BuildingDeck();
 	Building* allBuilding[4][6];
 public:
 	Building* draw();
@@ -79,25 +83,21 @@ public:
 };
 class Hand{
 private:
-	Tile* tile1;
-	Tile* tile2;
-	Building* buildings[60];
-	int numOfTree;
-	int numOfStone;
-	int numOfWheet;
-	int numOfTimber;
+
+	int *numOfSheep;
+	int *numOfStone;
+	int *numOfWheet;
+	int *numOfTimber;
 
 public:
-	void exchange();
-	Tile getTile1();
-	Tile getTile2();
-	int getNumOfTree();
+	Hand();
+	Hand(int tree, int stone, int wheet, int timber);
+	//void exchange(GBMap gbmp);
+	int getNumOfSheep();
 	int getNumOfStone();
 	int getNumOfWheet();
 	int getNumOfTimber();
-	void setTile1(Tile t);
-	void setTile2(Tile t);
-	void setNumOfTree(int i);
+	void setNumOfSheep(int i);
 	void setNumOfTimber(int i);
 	void setNumOfStone(int i);
 	void setNumOfWheet(int i);
@@ -106,3 +106,4 @@ public:
 
 
 #endif // !RESOURCES_H
+
