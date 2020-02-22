@@ -6,16 +6,41 @@
 #ifndef PROJECT_GBMAP_H
 #define PROJECT_GBMAP_H
 
-#include "../Resources/Resources.h"
+//#include "../Resources/Resources.h"
 #include <iostream>
 #include <vector>
 #include <map>
 #include <string>
 
 class TileSlot;
-TileSlot();
 
 class GBMap;
+
+class Tile
+{
+public:
+    Tile();
+    Tile(std::string upleft_, std::string upright_, std::string downleft_, std::string downright_);
+    ~Tile();
+
+    //setter
+    void setUpleft(std::string upleft_);
+    void setUpright(std::string upright_);
+    void setDownleft(std::string downleft_);
+    void setDownright(std::string downright_);
+
+    //getter
+    std::string getUpleft();
+    std::string getUpright();
+    std::string getDownleft();
+    std::string getDownright();
+private:
+    std::string* upleft;
+    std::string* upright;
+    std::string* downleft;
+    std::string* downright;
+
+};
 
 class TileSlot
 {
@@ -29,7 +54,7 @@ public:
     //destructor
     ~TileSlot();
 
-    Tile& getTile();
+    Tile getTile();
 
     void setTile(Tile Tile_);
 
@@ -39,7 +64,7 @@ public:
     //getTileSlot
     TileSlot getTileSlot();
 
-    TileSlot setTileSlot(TileSlot TileSlot_);
+    void setTileSlot(TileSlot TileSlot_);
 
     bool isEmpty();
 
@@ -51,8 +76,6 @@ public:
 
     //add TileSlot to adjacent TileSlot vector method
     void addAdjacentTileSlot(TileSlot *TileSlot);
-
-
 
     //check if TileSlot is adjacent
     bool isAdjacent(TileSlot *TileSlot);
@@ -92,13 +115,13 @@ public:
     // check if a map is a connected graph
     bool isConnectedGraph();
 
-    void print(GBMap map);
+    void print();
 
     TileSlot SearchById(GBMap* map_,int n);
 private:
     //vector containinf points to all circular spaces of the GBMap
     std::vector<TileSlot *> *TileSlots;
-    GBMap* map;
+    GBMap *map;
 
 
 };

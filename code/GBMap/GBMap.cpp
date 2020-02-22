@@ -3,32 +3,99 @@
 //
 
 #include "GBMap.h"
-#include "../Resources/Resources.h"
+//#include "../Resources/Resources.h"
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
+//Tile Section
+
+Tile::Tile()
+{
+    upleft = new string ("");
+    upright = new string ("");
+    downleft = new string ("");
+    downright = new string ("");
+}
+
+Tile::Tile(std::string upleft_, std::string upright_, std::string downleft_, std::string downright_)
+{
+    upleft = &upleft_;
+    upright = &upright_;
+    downleft = &downleft_;
+    downright = &downright_;
+}
+
+Tile::~Tile()
+{
+    delete upleft;
+    delete upright;
+    delete downleft;
+    delete downright;
+}
+
+void Tile::setUpleft(std::string upleft_)
+{
+    *upleft = upleft_;
+}
+
+void Tile::setUpright(std::string upright_)
+{
+    *upright = upright_;
+}
+
+void Tile::setDownleft(std::string downleft_)
+{
+    *downleft = downleft_;
+}
+
+void Tile::setDownright(std::string downright_)
+{
+    *downright = downright_;
+}
+
+//getters
+string Tile::getUpleft()
+{
+    return *upleft;
+}
+
+string Tile::getUpright()
+{
+    return *upright;
+}
+
+string Tile::getDownleft()
+{
+    return *downleft;
+}
+string Tile::getDownright()
+{
+    return *downright;
+}
+
+//TileSlot section
 //default
 TileSlot::TileSlot()
 {
-    *Tile_p = Tile();
-    *TileSlot_id = 0;
+    Tile_p = new Tile();
+    TileSlot_id = new int(0);
 
 }
 //parameter
 TileSlot::TileSlot(Tile Tile_, int TileSlot_id_)
 {
-    *Tile_p = Tile_;
-    *TileSlot_id = TileSlot_id_;
+    Tile_p = &Tile_;
+    TileSlot_id = &TileSlot_id_;
 }
 
 //parameter
 TileSlot::TileSlot(std::vector<TileSlot *> adjTilesSlots_, Tile Tile_, int TileSlot_id_)
 {
-    *adjTiltSlots = adjTilesSlots_;
-    *Tile_p = Tile_;
-    *TileSlot_id = TileSlot_id_;
+    adjTiltSlots = &adjTilesSlots_;
+    Tile_p = &Tile_;
+    TileSlot_id = &TileSlot_id_;
 }
 
 //destructor
@@ -39,14 +106,14 @@ TileSlot::~TileSlot()
     delete Tile_p;
 }
 
-Tile& TileSlot::getTile()
+Tile TileSlot::getTile()
 {
     return *Tile_p;
 }
 
 void TileSlot::setTile(Tile Tile_)
 {
-    *Tile_p = Tile_;
+    Tile_p = &Tile_;
 }
 
 TileSlot TileSlot::getTileSlot()
@@ -54,17 +121,16 @@ TileSlot TileSlot::getTileSlot()
     return *TileSlot_p;
 }
 
-TileSlot TileSlot::setTileSlot(TileSlot TileSlot_)
+void TileSlot::setTileSlot(TileSlot TileSlot_)
 {
-    *TileSlot_p = TileSlot_;
+    TileSlot_p = &TileSlot_;
 }
 
 bool TileSlot::isEmpty()
 {
-    if(&this->getTile()== nullptr)
-    {
+    if(this->getTile().getUpleft() == "")
         return true;
-    } else
+    else
         return false;
 }
 
@@ -78,7 +144,7 @@ std::vector<TileSlot *>& TileSlot::getAdjacentTileSlots()
 //adjacent TileSlot mutator method
 void TileSlot::setAdjacentTileSlots(std::vector<TileSlot *> adjTileSlots_)
 {
-    *adjTiltSlots = adjTileSlots_;
+    adjTiltSlots = &adjTileSlots_;
 }
 
 //add TileSlot to adjacent TileSlot vector method
@@ -133,7 +199,7 @@ std::vector<TileSlot *>& GBMap::getTileSlots()
 // Mutator method
 void GBMap::setTileSlots(std::vector<TileSlot *> TileSlots_)
 {
-    *TileSlots = TileSlots_;
+    TileSlots = &TileSlots_;
 
 }
 
@@ -172,32 +238,31 @@ bool GBMap::isConnectedGraph()
     return true;
 }
 
-void GBMap::print(GBMap map)
+void GBMap::print()
 {
     int *id = new int(0);
     Tile *temp = new Tile();
 
-    for (int i = 0; i < map.getTileSlots().size(); i++)
+    for (int i = 0; i < map->getTileSlots().size(); i++)
     {
-        *id = map.getTileSlots().at(i)->getTileSlotId();
+        *id = map->getTileSlots().at(i)->getTileSlotId();
         cout << "Id : " << id << endl;
-        *temp = map.getTileSlots().at(i)->getTile();
+        *temp = map->getTileSlots().at(i)->getTile();
 
         /* if there is tile inside, print tile information*/
-//        if (*temp )       has info
-//        {
-//             cout << "Tile : " << endl;
-//             cout << "        " << "Upleft: " << temp->getUpLeft() << endl;
-//             cout << "        " << "Upright: " << temp->getUpRight() << endl;
-//             cout << "        " << "Downleft: " << temp->getDownLeft() << endl;
-//             cout << "        " << "Downright: " << temp->getDownRight() << endl;
-//        }
-
+        if (map->getTileSlots().at(i)->isEmpty())
+        {
+             cout << "Tile : " << endl;
+             cout << "        " << "Upleft: " << temp->getUpleft() << endl;
+             cout << "        " << "Upright: " << temp->getUpright() << endl;
+             cout << "        " << "Downleft: " << temp->getDownleft() << endl;
+             cout << "        " << "Downright: " << temp->getDownright() << endl;
+        }
         /*if there is no tile inside, print empty */
-//        else
-//        {
-//            cout << "Empty Slot." << endl;
-//        }
+        else
+        {
+            cout << "Empty Slot." << endl;
+        }
     }
 }
 
@@ -217,5 +282,7 @@ TileSlot GBMap::SearchById(GBMap* map_,int n)
     } else
     {
         cout << "Error: Did not find match!\nPlease try again!";
+        return *temp;
     }
+
 }
