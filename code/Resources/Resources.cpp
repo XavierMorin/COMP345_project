@@ -78,13 +78,38 @@ void Building::setType(Type s)
 {
 	*type = s;
 }
+Building::Building() {
+	cost = new int(0);
+	type = nullptr;
+	*isFlipped = false;
+}
 Building::Building(int num,Type t) {
+	cost = new int(num);
+	*type = t;
+	isFlipped = false;
+}
+Building::Building(int num,Type t,bool s) {
 	cost=new int(num);
 	*type = t;
+	*isFlipped = s;
 }
 Building::~Building() {
 	delete type;
 	delete cost;
+	delete isFlipped;
+}
+void Building::setFlipped(bool s) {
+	*this->isFlipped = s;
+}
+bool Building::getIsFlipped() {
+	return *this->isFlipped;
+}
+void Building::turn() {
+	if (this->getIsFlipped == false)
+		this->setFlipped(true);
+	else {
+		this->setFlipped(false);
+	}
 }
 BuildingDeck::BuildingDeck() {
 	for (int i = 0; i < 6; i++) {
